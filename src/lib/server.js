@@ -10,7 +10,8 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
-//route to handle all unknown routes with code 404
+app.use(require('../route/auth-router'));
+
 app.all('/*', (req, res) => {
   res.sendStatus(404);
 });
