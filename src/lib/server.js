@@ -10,10 +10,14 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
+app.use(require('../route/item-route.js'));
+
 //route to handle all unknown routes with code 404
 app.all('/*', (req, res) => {
-  res.sendStatus(404);
+  res.sendStatus(402);
 });
+
+
 
 const server = module.exports = {};
 server.isOn = false;

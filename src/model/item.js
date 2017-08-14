@@ -3,8 +3,8 @@
 const mongoose = require('mongoose');
 
 const itemSchema = mongoose.Schema({
-  type: {type: String, required: true},
-  name: {type: String, required: true},
+  type: {type: String},
+  name: {type: String},
   photoURI: {type: String},
   description: {type: String},
   price: {type: Number},
