@@ -56,6 +56,7 @@ itemRouter.post(`${API_URL}/item`, bearerAuth, s3Upload('image'),(req, res, next
     .save()
     .then(item => {
       console.log('post item res: ', item);
+      //used on the front end.
       return res.json(item);
     })
     .catch(next);
