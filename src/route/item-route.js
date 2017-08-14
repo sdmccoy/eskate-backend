@@ -3,10 +3,10 @@
 const {Router} = require('express');
 const bearerAuth = require('../lib/bearer-auth.js');
 const s3Upload = require('../lib/s3-upload-middleware.js');
-const itemRouter = module.exports = new Router();
 const Item = require('../model/item.js');
+const itemRouter = module.exports = new Router();
 
-itemRouter.post(`${API_URL}/item`, bearerAuth, s3Upload('image'),(req, res, next) => {
+itemRouter.post(`${process.env.API_URL}/item`, bearerAuth, s3Upload('image'),(req, res, next) => {
   console.log('hit POST item route');
   new Item({
     type: req.body.type,
