@@ -10,11 +10,14 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
+app.use(require('../route/item-route.js'));
 app.use(require('../route/auth-router'));
 
 app.all('/*', (req, res) => {
-  res.sendStatus(404);
+  res.sendStatus(402);
 });
+
+
 
 const server = module.exports = {};
 server.isOn = false;
