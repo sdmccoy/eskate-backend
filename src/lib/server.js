@@ -3,13 +3,22 @@
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
+const mongoose = require('mongoose');
+
+//configuring mongoose to conenct to db
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
+
+//load routes
+app.use(require('../route/store-settings.js'));
+
 //route to handle all unknown routes with code 404
-app.all('/*', (req, res) => {
+app.all('/*', (req, res, next) => {
   res.sendStatus(404);
 });
 
