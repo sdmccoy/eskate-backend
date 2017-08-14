@@ -7,10 +7,10 @@ const storeSettings = require('../model/store-settings.js');
 const storeSettingsRouter = module.exports = new Router();
 
 storeSettingsRouter.post('/store', (req, res, next) => {
-  console.log('hit', req);
+  console.log('hit', req.body);
   new storeSettings({
-    storePhoneNumber: req.body.phoneNumber,
     storeAddress: req.body.address,
+    storePhoneNumber: req.body.phoneNumber,
     storeCity: req.body.city,
     storeState: req.body.state,
     storeZipCode: req.body.zipCode,
