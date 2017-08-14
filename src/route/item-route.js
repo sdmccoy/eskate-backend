@@ -7,6 +7,7 @@ const itemRouter = module.exports = new Router();
 const Item = require('../model/item.js');
 
 itemRouter.post(`${API_URL}/item`, bearerAuth, s3Upload('image'),(req, res, next) => {
+  console.log('hit POST item route');
   new Item({
     type: req.body.type,
     name: req.body.name,
@@ -51,5 +52,11 @@ itemRouter.post(`${API_URL}/item`, bearerAuth, s3Upload('image'),(req, res, next
     parameters: req.body.parameters,
     continuousCurrent: req.body.continuousCurrent,
     burstCurrent: req.body.burstCurrent,
-  });
+  })
+    .save()
+    .then(item => {
+      console.log('post item res: ', item);
+      return res.json(item);
+    })
+    .catch(next);
 });
