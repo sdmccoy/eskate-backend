@@ -13,21 +13,14 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
-<<<<<<< HEAD
-
-
-//load routes
-app.use(require('../route/store-settings.js'));
-
-//route to handle all unknown routes with code 404
-app.all('/*', (req, res, next) => {
-=======
+app.use(require('../route/item-route.js'));
 app.use(require('../route/auth-router'));
 
 app.all('/*', (req, res) => {
->>>>>>> f64f505925b14c182e7701025e39cb044d93a60c
-  res.sendStatus(404);
+  res.sendStatus(402);
 });
+
+
 
 const server = module.exports = {};
 server.isOn = false;
