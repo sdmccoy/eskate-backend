@@ -3,6 +3,8 @@
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MDB_URI);
 
 const app = express();
 app.use(morgan('dev'));
