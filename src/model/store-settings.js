@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 
 const storeSettingsSchema = mongoose.Schema({
+  storeLogoURI: {type: String},
   storeAddress: {type: String},
   storeCity: {type: String},
   storeState: {type: String},

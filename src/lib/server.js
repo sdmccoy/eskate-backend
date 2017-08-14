@@ -13,11 +13,12 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
-app.use(require('../route/item-route.js'));
+app.use(require('../route/item-router.js'));
 app.use(require('../route/auth-router'));
+app.use(require('../route/store-settings'));
 
 app.all('/*', (req, res) => {
-  res.sendStatus(402);
+  res.sendStatus(404);
 });
 
 
