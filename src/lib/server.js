@@ -11,8 +11,8 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.use(require('../route/item-route.js'));
+app.use(require('../route/auth-router'));
 
-//route to handle all unknown routes with code 404
 app.all('/*', (req, res) => {
   res.sendStatus(402);
 });
