@@ -4,10 +4,14 @@ const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+<<<<<<< HEAD
 
 //configuring mongoose to conenct to db
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URI);
+=======
+mongoose.connect(process.env.MDB_URI);
+>>>>>>> 7dd0e20734352c350bd893e7e8223a100710c21a
 
 const app = express();
 app.use(morgan('dev'));
