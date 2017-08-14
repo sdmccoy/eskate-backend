@@ -2,7 +2,7 @@
 
 const {Router} = require('express');
 
-const storeSettings = require('../model/store-settings.js');
+const = require('../model/store-settings.js');
 
 const storeSettingsRouter = module.exports = new Router();
 
