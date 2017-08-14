@@ -1,7 +1,7 @@
 'use strict';
 
 const {Router} = require('express');
-const bearerAuth = require('../lib/bearer-auth.js');
+const bearerAuth = require('../lib/bearer-auth-middleware.js');
 const s3Upload = require('../lib/s3-upload-middleware.js');
 const Item = require('../model/item.js');
 const itemRouter = module.exports = new Router();
