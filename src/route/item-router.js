@@ -61,9 +61,16 @@ itemRouter.post('/item', bearerAuth, s3Upload('image'), (req, res, next) => {
     .catch(next);
 });
 
-itemRouter.get('/item/:id', bearerAuth, (req, res, next) => {
+itemRouter.get('/item/:id', (req, res, next) => {
   console.log('hit GET item');
   Item.findOne({_id: req.params.id})
     .then(item => res.json(item))
+    .catch(next);
+});
+
+itemRouter.get('/item', (req, res, next) => {
+  console.log('hit GET multi items');
+  Item.find({})
+    .then(items => res.json(items))
     .catch(next);
 });
