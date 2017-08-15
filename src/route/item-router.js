@@ -57,9 +57,13 @@ itemRouter.post('/item', bearerAuth, s3Upload('image'), (req, res, next) => {
     burstCurrent: req.body.burstCurrent,
   })
     .save()
-    .then(item => {
-      //used on the front end.
-      return res.json(item);
-    })
+    .then(item => res.json(item))
+    .catch(next);
+});
+
+itemRouter.get('/item/:id', bearerAuth, (req, res, next) => {
+  console.log('hit GET item');
+  Item.findOne({_id: req.params.id})
+    .then(item => res.json(item))
     .catch(next);
 });
