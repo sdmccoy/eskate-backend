@@ -24,3 +24,30 @@ storeSettingsRouter.post('/store', bearerAuth, s3Upload('storeLogo'), (req, res,
     .then(store => res.json(store))
     .catch(next);
 });
+
+storeSettingsRouter.get('/store', bearerAuth, (req, res, next) => {
+  storeSettings.find({})
+    .then(store => res.json(store))
+    .catch(next);
+});
+
+storeSettingsRouter.put('/store/:id', bearerAuth, s3Upload('storeLogo'),(req, res, next) => {
+  console.log('%%%%', req.body);
+  let options = {
+    runValidators: true,
+    new: true,
+  };
+  storeSettings.findByIdAndUpdate(req.params.id,
+    {
+      storeLogoURI: req.s3Data.Location,
+      storeAddress: req.body.address,
+      storePhoneNumber: req.body.phoneNumber,
+      storeCity: req.body.city,
+      storeState: req.body.state,
+      storeZipCode: req.body.zipCode,
+      storeAboutUs: req.body.aboutUs,
+    },
+    options)
+    .then(store => res.json(store))
+    .catch(next);
+});
