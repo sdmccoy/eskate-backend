@@ -9,6 +9,7 @@ const s3 = new S3();
 const upload = multer({dest: `${__dirname}/../temp-assets`});
 
 module.exports = (fieldName) => (req, res, next) => {
+  console.log('hit multer');
   upload.single(fieldName)(req, res, (err) => {
     if(err)
       return next(err);

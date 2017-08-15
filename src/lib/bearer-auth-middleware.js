@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
     return next(new Error('unauthorized no auth header'));
 
   let token = authorization.split('Bearer ')[1];
-  console.log('#####', token)
   if (!token)
     return next(new Error('unauthorized no token found'));
 
