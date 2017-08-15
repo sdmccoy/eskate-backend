@@ -4,6 +4,7 @@
 const {Router} = require('express');
 const bearerAuth = require('../lib/bearer-auth-middleware.js');
 const s3Upload = require('../lib/s3-upload-middleware.js');
+const s3Delete = require('../lib/s3-delete-middleware.js');
 const Item = require('../model/item.js');
 const itemRouter = module.exports = new Router();
 
@@ -90,4 +91,25 @@ itemRouter.put('/item/:id', bearerAuth, s3Upload('image'), (req, res, next) => {
   Item.findOneAndUpdate({_id: req.params.id}, req.body, options)
     .then(updatedItem => res.json(updatedItem))
     .catch(next);
+});
+
+itemRouter.delete('/item/:id', bearerAuth, (req, res, next) => {
+  console.log('hit DELETE route');
+
+  let photoURIKey = [];
+
+  Item.findOne({_id: req.params.id})
+    .then(item => {
+      console.log('itemphotouir: ', item.photoURI);
+      if(!(typeof item.photoURI) === undefined) {
+        photoURIKey = item.photoURI.split('/');
+        console.log('photoURIKey: ', photoURIKey);
+        s3Delete(photoURIKey[photoURIKey.length-1]);
+      }
+      console.log('req.paras.id: ', req.params.id);
+      Item.deleteOne({_id: req.params.id});
+      console.log('breaaaak213432');
+    })
+    .catch(next);
+
 });
