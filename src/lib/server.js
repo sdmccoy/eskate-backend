@@ -4,17 +4,21 @@ const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+
+//configuring mongoose to conenct to db
+mongoose.Promise = Promise;
 mongoose.connect(process.env.MDB_URI);
 
 const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
-app.use(require('../route/item-route.js'));
+app.use(require('../route/item-router.js'));
 app.use(require('../route/auth-router'));
+app.use(require('../route/store-settings'));
 
 app.all('/*', (req, res) => {
-  res.sendStatus(402);
+  res.sendStatus(404);
 });
 
 
