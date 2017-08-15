@@ -11,10 +11,12 @@ const itemRouter = module.exports = new Router();
 itemRouter.post('/item', bearerAuth, s3Upload('image'), (req, res, next) => {
   console.log('hit POST item route');
 
+  req.body.photoURI = req.s3Data.Location;
+
   new Item({
     type: req.body.type,
     name: req.body.name,
-    photoURI: req.s3Data.Location,
+    photoURI: req.body.photoURI,
     description: req.body.description,
     price: req.body.price,
     motorPower: req.body.motorPower,
@@ -72,5 +74,20 @@ itemRouter.get('/item', (req, res, next) => {
   console.log('hit GET multi items');
   Item.find({})
     .then(items => res.json(items))
+    .catch(next);
+});
+
+itemRouter.put('/item/:id', bearerAuth, s3Upload('image'), (req, res, next) => {
+  console.log('hit PUT item');
+  //set the s3 location to the req.body
+  req.body.photoURI = req.s3Data.Location;
+
+  let options = {
+    new: true,
+    runValidators: true,
+  };
+
+  Item.findOneAndUpdate({_id: req.params.id}, req.body, options)
+    .then(updatedItem => res.json(updatedItem))
     .catch(next);
 });
