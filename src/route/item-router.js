@@ -4,6 +4,7 @@
 const {Router} = require('express');
 const bearerAuth = require('../lib/bearer-auth-middleware.js');
 const s3Upload = require('../lib/s3-upload-middleware.js');
+const s3Delete = require('../lib/s3-delete-middleware.js');
 const Item = require('../model/item.js');
 const itemRouter = module.exports = new Router();
 
@@ -11,10 +12,12 @@ const itemRouter = module.exports = new Router();
 itemRouter.post('/item', bearerAuth, s3Upload('image'), (req, res, next) => {
   console.log('hit POST item route');
 
+  req.body.photoURI = req.s3Data.Location;
+
   new Item({
     type: req.body.type,
     name: req.body.name,
-    photoURI: req.s3Data.Location,
+    photoURI: req.body.photoURI,
     description: req.body.description,
     price: req.body.price,
     motorPower: req.body.motorPower,
@@ -57,9 +60,55 @@ itemRouter.post('/item', bearerAuth, s3Upload('image'), (req, res, next) => {
     burstCurrent: req.body.burstCurrent,
   })
     .save()
-    .then(item => {
-      //used on the front end.
-      return res.json(item);
-    })
+    .then(item => res.json(item))
     .catch(next);
+});
+
+itemRouter.get('/item/:id', (req, res, next) => {
+  console.log('hit GET item');
+  Item.findOne({_id: req.params.id})
+    .then(item => res.json(item))
+    .catch(next);
+});
+
+itemRouter.get('/item', (req, res, next) => {
+  console.log('hit GET multi items');
+  Item.find({})
+    .then(items => res.json(items))
+    .catch(next);
+});
+
+itemRouter.put('/item/:id', bearerAuth, s3Upload('image'), (req, res, next) => {
+  console.log('hit PUT item');
+  //set the s3 location to the req.body
+  req.body.photoURI = req.s3Data.Location;
+
+  let options = {
+    new: true,
+    runValidators: true,
+  };
+
+  Item.findOneAndUpdate({_id: req.params.id}, req.body, options)
+    .then(updatedItem => res.json(updatedItem))
+    .catch(next);
+});
+
+itemRouter.delete('/item/:id', bearerAuth, (req, res, next) => {
+  console.log('hit DELETE route');
+
+  let photoURIKey = [];
+
+  Item.findOne({_id: req.params.id})
+    .then(item => {
+      console.log('itemphotouir: ', item.photoURI);
+      if(item.photoURI) {
+        photoURIKey = item.photoURI.split('/');
+        console.log('photoURIKey: ', photoURIKey);
+        s3Delete(photoURIKey[photoURIKey.length-1]);
+      }
+      return Item.findByIdAndRemove(req.params.id);
+    })
+    .then(() => res.json({}))
+    .catch(next);
+
 });
