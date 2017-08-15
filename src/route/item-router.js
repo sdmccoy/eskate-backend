@@ -101,15 +101,14 @@ itemRouter.delete('/item/:id', bearerAuth, (req, res, next) => {
   Item.findOne({_id: req.params.id})
     .then(item => {
       console.log('itemphotouir: ', item.photoURI);
-      if(!(typeof item.photoURI) === undefined) {
+      if(item.photoURI) {
         photoURIKey = item.photoURI.split('/');
         console.log('photoURIKey: ', photoURIKey);
         s3Delete(photoURIKey[photoURIKey.length-1]);
       }
-      console.log('req.paras.id: ', req.params.id);
-      Item.deleteOne({_id: req.params.id});
-      console.log('breaaaak213432');
+      return Item.findByIdAndRemove(req.params.id);
     })
+    .then(() => res.json({}))
     .catch(next);
 
 });
