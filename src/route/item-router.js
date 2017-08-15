@@ -1,17 +1,20 @@
 'use strict';
 
+// const jsonParser = require('body-parser').json();
 const {Router} = require('express');
-// const bearerAuth = require('../lib/bearer-auth-middleware.js');
-// const s3Upload = require('../lib/s3-upload-middleware.js');
+const bearerAuth = require('../lib/bearer-auth-middleware.js');
+const s3Upload = require('../lib/s3-upload-middleware.js');
 const Item = require('../model/item.js');
 const itemRouter = module.exports = new Router();
 
-itemRouter.post('/item', (req, res, next) => {
+
+itemRouter.post('/item', bearerAuth, s3Upload('image'), (req, res, next) => {
   console.log('hit POST item route');
+
   new Item({
     type: req.body.type,
     name: req.body.name,
-    photoURI: req.body.photoURI,
+    photoURI: req.s3Data.Location,
     description: req.body.description,
     price: req.body.price,
     motorPower: req.body.motorPower,
@@ -55,7 +58,6 @@ itemRouter.post('/item', (req, res, next) => {
   })
     .save()
     .then(item => {
-      console.log('post item res: ', item);
       //used on the front end.
       return res.json(item);
     })
