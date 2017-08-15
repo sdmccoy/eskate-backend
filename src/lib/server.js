@@ -11,7 +11,10 @@ mongoose.connect(process.env.MDB_URI);
 
 const app = express();
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGINS.split(' '),
+  credentials: true,
+}));
 
 app.use(require('../route/item-router.js'));
 app.use(require('../route/auth-router'));
