@@ -21,8 +21,6 @@ app.all('/*', (req, res) => {
   res.sendStatus(404);
 });
 
-
-
 const server = module.exports = {};
 server.isOn = false;
 
