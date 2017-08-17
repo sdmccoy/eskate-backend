@@ -5,8 +5,10 @@ const server = require('../src/lib/server.js');
 const expect = require('expect');
 const superagent = require('superagent');
 const mockUser = require('./mock/mock-user.js');
+// const mockItem = require('./mock/mock-item.js');
 const API_URL = process.env.API_URL;
 let tempUserData;
+let tempItemData;
 
 describe('Testing Item routes', () => {
   //start stop server
@@ -15,7 +17,7 @@ describe('Testing Item routes', () => {
   //clear the db?
 
   describe('Testing POST item route', () => {
-    it('it should return with a new item', () => {
+    it.only('it should return with a new item', () => {
       return mockUser.mockOne().then(userData => {
         tempUserData = userData;
         return superagent.post(`${API_URL}/item`)
@@ -64,7 +66,8 @@ describe('Testing Item routes', () => {
           .field('burstCurrent', '60amp')
           .attach('file', `${__dirname}/temp-assets/testpicture.png`);
       }).then(res => {
-        console.log('resbody: ', res.body);
+        tempItemData = res.body;
+        console.log('tempItemData: ', tempItemData);
         expect(res.body.type).toEqual('board');
         expect(res.body.name).toEqual('Testing Mtn Board');
         expect(res.body.photoURI).toExist();
@@ -110,6 +113,44 @@ describe('Testing Item routes', () => {
         expect(res.body.burstCurrent).toEqual('60amp');
         expect(res.body._id).toExist();
       });
+    });
+  });
+
+  describe('Testing GET item route', () => {
+    it('it should return with a specific item', () => {
+      console.log('tempItemData: ', tempItemData);
+      return superagent.get(`${API_URL}/item/${tempItemData._id}`)
+        .then(res => {
+          console.log('GET res.body: ', res.body);
+          expect(res.body.type).toEqual(tempItemData.type);
+          expect(res.body.name).toEqual(tempItemData.name);
+          expect(res.body.photoURI).toExist(tempItemData.photoURI);
+          expect(res.body.description).toEqual(tempItemData.description);
+          expect(res.body.price).toEqual(tempItemData.price);
+          expect(res.body._id).toExist(tempItemData._id);
+        });
+    });
+  });
+
+  describe('Testing PUT item route', () => {
+    it('it should return with an updated item', () => {
+      console.log('tempItemData: ', tempItemData);
+      return superagent.put(`${API_URL}/item/${tempItemData._id}`)
+        .set('Authorization', `Bearer ${tempUserData.token}`)
+        .field('type', 'part')
+        .field('name', 'Go to parts')
+        .field('description', 'this is my updated description')
+        .field('price', 40)
+        // .attach('file', `${__dirname}/temp-assets/testpicture.png`)
+        .then(res => {
+          console.log('PUT res.body: ', res.body);
+          expect(res.body.type).toEqual('part');
+          expect(res.body.name).toEqual('Go to parts');
+          expect(res.body.photoURI).toExist();
+          expect(res.body.description).toEqual('this is my updated description');
+          expect(res.body.price).toEqual(40);
+          expect(res.body._id).toExist();
+        });
     });
   });
 });

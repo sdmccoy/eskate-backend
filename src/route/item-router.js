@@ -82,7 +82,7 @@ itemRouter.get('/item', (req, res, next) => {
     .catch(next);
 });
 
-itemRouter.put('/item/:id', bearerAuth, s3Upload('image'), (req, res, next) => {
+itemRouter.put('/item/:id', bearerAuth, s3Upload('file'), (req, res, next) => {
   console.log('hit PUT item');
   //set the s3 location to the req.body
   req.body.photoURI = req.s3Data.Location;
