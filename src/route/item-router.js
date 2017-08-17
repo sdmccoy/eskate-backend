@@ -11,12 +11,12 @@ const itemRouter = module.exports = new Router();
 
 itemRouter.post('/item', bearerAuth, s3Upload('file'), (req, res, next) => {
   console.log('hit POST item route');
-  console.log('POST req.body:', req.body);
-  console.log('POST req.s3:', req.s3Data);
+  // console.log('POST req.body:', req.body);
+  // console.log('POST req.s3:', req.s3Data);
 
   // req.body = JSON.parse(req.body.item);
   req.body.photoURI = req.s3Data.Location;
-  console.log('POST req.body2:', req.body);
+  // console.log('POST req.body2:', req.body);
 
   new Item({
     type: req.body.type,
@@ -112,7 +112,7 @@ itemRouter.delete('/item/:id', bearerAuth, (req, res, next) => {
       }
       return Item.findByIdAndRemove(req.params.id);
     })
-    .then(() => res.json({}))
+    .then(() => res.sendStatus(204))
     .catch(next);
 
 });
