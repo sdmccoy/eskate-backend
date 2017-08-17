@@ -11,9 +11,12 @@ const itemRouter = module.exports = new Router();
 
 itemRouter.post('/item', bearerAuth, s3Upload('file'), (req, res, next) => {
   console.log('hit POST item route');
+  console.log('POST req.body:', req.body);
+  console.log('POST req.s3:', req.s3Data);
 
-  req.body = JSON.parse(req.body.item);
+  // req.body = JSON.parse(req.body.item);
   req.body.photoURI = req.s3Data.Location;
+  console.log('POST req.body2:', req.body);
 
   new Item({
     type: req.body.type,
@@ -79,7 +82,7 @@ itemRouter.get('/item', (req, res, next) => {
     .catch(next);
 });
 
-itemRouter.put('/item/:id', bearerAuth, s3Upload('image'), (req, res, next) => {
+itemRouter.put('/item/:id', bearerAuth, s3Upload('file'), (req, res, next) => {
   console.log('hit PUT item');
   //set the s3 location to the req.body
   req.body.photoURI = req.s3Data.Location;
