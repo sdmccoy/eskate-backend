@@ -25,7 +25,7 @@ storeSettingsRouter.post('/store', bearerAuth, s3Upload('storeLogo'), (req, res,
     .catch(next);
 });
 
-storeSettingsRouter.get('/store', bearerAuth, (req, res, next) => {
+storeSettingsRouter.get('/store', (req, res, next) => {
   storeSettings.find({})
     .then(store => res.json(store))
     .catch(next);

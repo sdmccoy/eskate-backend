@@ -9,9 +9,10 @@ const Item = require('../model/item.js');
 const itemRouter = module.exports = new Router();
 
 
-itemRouter.post('/item', bearerAuth, s3Upload('image'), (req, res, next) => {
+itemRouter.post('/item', bearerAuth, s3Upload('file'), (req, res, next) => {
   console.log('hit POST item route');
 
+  req.body = JSON.parse(req.body.item);
   req.body.photoURI = req.s3Data.Location;
 
   new Item({
