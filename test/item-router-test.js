@@ -9,6 +9,7 @@ const mockUser = require('./mock/mock-user.js');
 const API_URL = process.env.API_URL;
 let tempUserData;
 let tempItemData;
+// let filePath = `${__dirname}/temp-assets/testpicture.png`;
 
 describe('Testing Item routes', () => {
   //start stop server
@@ -17,11 +18,12 @@ describe('Testing Item routes', () => {
   //clear the db?
 
   describe('Testing POST item route', () => {
-    it.only('it should return with a new item', () => {
+    it('it should return with a new item', () => {
       return mockUser.mockOne().then(userData => {
         tempUserData = userData;
         return superagent.post(`${API_URL}/item`)
           .set('Authorization', `Bearer ${tempUserData.token}`)
+          .set('Content-Type', 'image/png')
           .field('type', 'board')
           .field('name', 'Testing Mtn Board')
           .field('description', 'an amazing board')
@@ -141,7 +143,7 @@ describe('Testing Item routes', () => {
         .field('name', 'Go to parts')
         .field('description', 'this is my updated description')
         .field('price', 40)
-        // .attach('file', `${__dirname}/temp-assets/testpicture.png`)
+        .attach('file', `${__dirname}/temp-assets/testpicture.png`)
         .then(res => {
           console.log('PUT res.body: ', res.body);
           expect(res.body.type).toEqual('part');
@@ -150,6 +152,16 @@ describe('Testing Item routes', () => {
           expect(res.body.description).toEqual('this is my updated description');
           expect(res.body.price).toEqual(40);
           expect(res.body._id).toExist();
+        });
+    });
+  });
+  describe('Testing DELETE item route', () => {
+    it('it should remove item', () => {
+      console.log('tempItemData: ', tempItemData);
+      return superagent.delete(`${API_URL}/item/${tempItemData._id}`)
+        .set('Authorization', `Bearer ${tempUserData.token}`)
+        .then(res => {
+          expect(res.status).toEqual(204);
         });
     });
   });
