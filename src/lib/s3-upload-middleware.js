@@ -13,9 +13,6 @@ module.exports = (fieldName) => (req, res, next) => {
   upload.single(fieldName)(req, res, (err) => {
     if(err)
       return next(err);
-    if(!req.file)
-      return next(new Error('validation failed no file added'));
-
     s3.upload({
       ACL: 'public-read',
       Bucket: process.env.AWS_BUCKET,
