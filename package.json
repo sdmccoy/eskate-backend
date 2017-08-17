@@ -6,7 +6,11 @@
     "start": "nodemon server.js",
     "lint": "eslint .",
     "start-db": "mkdir -p ./db && mongod --dbpath ./db",
-    "stop-db": "killall mongod"
+    "stop-db": "killall mongod",
+    "test": "nyc mocha"
+  },
+  "directories": {
+    "test": "test"
   },
   "repository": "https://github.com/sdmccoy/eskate-backend.git",
   "author": "Oscar Cauich <ocauich@gravitypayments.com>",
@@ -25,16 +29,19 @@
     "crypto": "^1.0.1",
     "css-loader": "^0.28.4",
     "dotenv": "^4.0.0",
+    "expect": "^1.20.2",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "fs-extra": "^4.0.1",
     "html-webpack-plugin": "^2.30.1",
     "jsonwebtoken": "^7.4.2",
+    "mocha": "^3.5.0",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.7",
     "morgan": "^1.8.2",
     "multer": "^1.3.0",
     "node-sass": "^4.5.3",
+    "nyc": "^11.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
