@@ -9,6 +9,8 @@ const User = require('../model/user.js');
 const authRouter = module.exports = new Router();
 
 authRouter.post('/admin/signup', jsonParser, (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) return next(new Error('no username or password'));
   User.create(req.body)
     .then(token => res.send(token))
     .catch(next);

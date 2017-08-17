@@ -20,6 +20,8 @@ app.use(require('../route/item-router.js'));
 app.use(require('../route/auth-router'));
 app.use(require('../route/store-settings'));
 
+app.use(require('./error-middleware.js'));
+
 app.all('/*', (req, res) => {
   res.sendStatus(404);
 });
