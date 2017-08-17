@@ -49,23 +49,3 @@ const itemSchema = mongoose.Schema({
 });
 
 const Item = module.exports = mongoose.model('item', itemSchema);
-
-Item.create = (data) => {
-  console.log('item data: ', data);
-  //run photo through aws first.
-
-};
-
-Item.read = (data) => {
-  console.log('item data: ', data);
-
-};
-Item.update = (data) => {
-  console.log('item data: ', data);
-
-};
-
-Item.delete = (data) => {
-  console.log('item data: ', data);
-
-};

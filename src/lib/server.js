@@ -32,12 +32,12 @@ server.start = () => {
     if(!server.isOn){
       server.http = app.listen(process.env.PORT, () => {
         server.isOn = true;
-        console.log('server is running on PORT ', process.env.PORT);
+        console.log('\nserver is running on PORT ', process.env.PORT);
         resolve();
       });
       return;
     }
-    reject(new Error('server is already running'));
+    reject(new Error('\nserver is already running'));
   });
 };
 

@@ -35,6 +35,7 @@ userSchema.methods.tokenSeedCreate = function (){
 
     const _tokenSeedCreate = () => {
       this.tokenSeed = crypto.randomBytes(32).toString('hex');
+      console.log('this.TS: ', this);
       this.save()
         .then(() => resolve(this))
         .catch(() => {
