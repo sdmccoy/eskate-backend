@@ -35,7 +35,6 @@ Not this type of CRUD
 
 **Viewing all items:**  
 - GET Request to  
- -
 ```https://eskate-frontend.herokuapp.com/item```  
 - Returns  
   - An Array of Objects  
@@ -44,7 +43,6 @@ Not this type of CRUD
 - Data type  
  - multipart/form-data  
 - PUT Request to  
- -
 ```https://eskate-frontend.herokuapp.com/:id```  
   - id = `._id`
 
@@ -56,7 +54,6 @@ Not this type of CRUD
 
 **Deleting an item:**  
 - DELETE Request to  
- -
 ```https://eskate-frontend.herokuapp.com/:id```  
   - id = `._id`  
 - Returns
