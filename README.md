@@ -19,9 +19,9 @@
 Not this type of CRUD  
 > snow that is not packed down or groomed.
 
-*** Item Routes  
+***Item Routes***  
 
-** Creating a new item:
+**Creating a new item:**
 
 - Data type  
  - multipart/form-data  
@@ -33,14 +33,14 @@ Not this type of CRUD
 - Returns  
   - Object with new item KV pairs  
 
-** Viewing all items:  
+**Viewing all items:**  
 - GET Request to  
  -
 ```https://eskate-frontend.herokuapp.com/item```  
 - Returns  
   - An Array of Objects  
 
-** Updating an item:  
+**Updating an item:**  
 - Data type  
  - multipart/form-data  
 - PUT Request to  
@@ -54,7 +54,7 @@ Not this type of CRUD
 - Returns  
   - Object with updated item KV pairs  
 
-** Deleting an item:  
+**Deleting an item:**  
 - DELETE Request to  
  -
 ```https://eskate-frontend.herokuapp.com/:id```  
@@ -62,7 +62,7 @@ Not this type of CRUD
 - Returns
   - empty object and 204
 
-*** Store / Order Routes = ToDo  
+***Store / Order Routes = ToDo***  
 
 
 ## AWS S3  
