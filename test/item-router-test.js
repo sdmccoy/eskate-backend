@@ -157,7 +157,7 @@ describe('Testing Item routes', () => {
   });
   describe('Testing DELETE item route', () => {
     it('it should remove item', () => {
-      console.log('tempItemData: ', tempItemData);
+      // console.log('tempItemData: ', tempItemData);
       return superagent.delete(`${API_URL}/item/${tempItemData._id}`)
         .set('Authorization', `Bearer ${tempUserData.token}`)
         .then(res => {
