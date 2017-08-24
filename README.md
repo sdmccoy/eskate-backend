@@ -2,7 +2,7 @@
 ---
 *A back-end RESTful API for an eCommerce web application that can be found at [E-Skate](https://eskate-frontend.herokuapp.com/)*
 
-## Key Features  
+## Key Features
 ---
 - CRUD operations on
     - Item model
@@ -13,38 +13,37 @@
 - Login route for Admin interface
 - ToDo
 
-### CRUD  
+## CRUD  
 ---  
 
-Not this type of == CRUD ==  
+Not this type of CRUD  
 > snow that is not packed down or groomed.
 
-*** Item Routes ***  
+*** Item Routes  
 
-** Creating a new item: **
+** Creating a new item:
 
 - Data type  
  - multipart/form-data  
-- ==POST== Request to  
- -
+- POST Request to  
 ```https://eskate-frontend.herokuapp.com/item```  
 - Required  
-  - type: 'board' or 'part'
+  - type: `'board'` or `'part'`
   - file: uploaded from local machine  
 - Returns  
   - Object with new item KV pairs  
 
-** Viewing all items: **  
-- ==GET== Request to  
+** Viewing all items:  
+- GET Request to  
  -
 ```https://eskate-frontend.herokuapp.com/item```  
 - Returns  
   - An Array of Objects  
 
-** Updating an item: **  
+** Updating an item:  
 - Data type  
  - multipart/form-data  
-- ==PUT== Request to  
+- PUT Request to  
  -
 ```https://eskate-frontend.herokuapp.com/:id```  
   - id = `._id`
@@ -55,15 +54,15 @@ Not this type of == CRUD ==
 - Returns  
   - Object with updated item KV pairs  
 
-** Deleting an item: **  
-- ==DELETE== Request to  
+** Deleting an item:  
+- DELETE Request to  
  -
 ```https://eskate-frontend.herokuapp.com/:id```  
   - id = `._id`  
 - Returns
   - empty object and 204
 
-*** Store / Order Routes = ToDo ***
+*** Store / Order Routes = ToDo  
 
 
 ## AWS S3  
@@ -88,4 +87,4 @@ Not this type of == CRUD ==
 - S3 upload accepting current URI or ~ photo coming soon ~ stock placeholder.  
  - This should fix update routes on all models.
 - Fix JSON parse on POST item route.  
-- Refactor to CSS or Material UI. 
+- Refactor to CSS or Material UI.
