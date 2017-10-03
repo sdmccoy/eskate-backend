@@ -19,7 +19,6 @@ authRouter.post('/admin/signup', jsonParser, (req, res, next) => {
 authRouter.get('/admin/login', basicAuth, (req, res, next) => {
   req.user.tokenCreate()
     .then(token => {
-      console.log(token);
       const cookieOptions = { maxAge: (7 * 24 * 60 * 60 * 1000) };
       res.cookie('Admin-Token', token, cookieOptions);
       res.send(token);
