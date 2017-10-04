@@ -13,7 +13,7 @@
     "test": "test"
   },
   "repository": "https://github.com/sdmccoy/eskate-backend.git",
-  "author": "Oscar Cauich <ocauich@gravitypayments.com>",
+  "author": "Scott McCoy <scottmccoydev@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.98.0",

@@ -35,9 +35,10 @@ userSchema.methods.tokenSeedCreate = function (){
 
     const _tokenSeedCreate = () => {
       this.tokenSeed = crypto.randomBytes(32).toString('hex');
-      console.log('this.TS: ', this);
       this.save()
-        .then(() => resolve(this))
+        .then(() => {
+          resolve(this);
+        })
         .catch(() => {
           if (tries < 1) return reject(new Error('server failed to create tokenSeed'));
           tries--;
@@ -56,8 +57,13 @@ userSchema.methods.tokenCreate = function() {
 const User = module.exports = mongoose.model('user', userSchema);
 
 User.create = function(data){
+  console.log('usercreate data:', data);
   const password = data.password;
   delete data.password;
+  console.log('usercreate data noPW:', data);
   return new User(data).passwordHashCreate(password)
-    .then(user => user.tokenCreate());
+    .then(user => {
+      console.log('user after create:', user);
+      user.tokenCreate();
+    });
 };
