@@ -9,7 +9,7 @@ const bearerAuth = require('../lib/bearer-auth-middleware.js');
 
 const storeSettingsRouter = module.exports = new Router();
 
-storeSettingsRouter.post('/store', bearerAuth, s3Upload('storeLogo'), (req, res, next) => {
+storeSettingsRouter.post('/store', bearerAuth, s3Upload('file'), (req, res, next) => {
   console.log('hit', req.body);
   new storeSettings({
     storeLogoURI: req.s3Data.Location,
