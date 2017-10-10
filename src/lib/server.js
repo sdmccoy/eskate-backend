@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+const corsOrigins = process.env.CORS_ORIGINS || 'http://www.e-skate.tech';
 
 //configuring mongoose to conenct to db
 mongoose.Promise = Promise;
@@ -13,7 +14,7 @@ mongoose.connect(process.env.MDB_URI);
 const app = express();
 app.use(morgan('dev'));
 app.use(cors({
-  origin: process.env.CORS_ORIGINS.split(' '),
+  origin: corsOrigins,
   credentials: true,
 }));
 
