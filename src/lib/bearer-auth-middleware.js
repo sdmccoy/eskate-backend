@@ -5,7 +5,6 @@ const User = require('../model/user.js');
 const universalify = require('universalify');
 
 module.exports = (req, res, next) => {
-
   let {authorization} = req.headers;
   if (!authorization)
     return next(new Error('unauthorized no auth header'));

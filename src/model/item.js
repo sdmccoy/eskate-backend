@@ -48,4 +48,4 @@ const itemSchema = mongoose.Schema({
   burstCurrent: {type: String},
 });
 
-const Item = module.exports = mongoose.model('item', itemSchema);
+module.exports = mongoose.model('item', itemSchema);

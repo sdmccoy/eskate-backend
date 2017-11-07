@@ -1,9 +1,12 @@
 'use strict';
 
+require('dotenv').config();
+const https = require('https');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+const corsOrigins = process.env.CORS_ORIGINS || 'http://www.e-skate.tech';
 
 //configuring mongoose to conenct to db
 mongoose.Promise = Promise;
@@ -12,7 +15,7 @@ mongoose.connect(process.env.MDB_URI);
 const app = express();
 app.use(morgan('dev'));
 app.use(cors({
-  origin: process.env.CORS_ORIGINS.split(' '),
+  origin: corsOrigins,
   credentials: true,
 }));
 
@@ -55,3 +58,14 @@ server.stop = () => {
     reject(new Error('It seems like the server is off'));
   });
 };
+
+//try https get request with node https get
+let currentHour = new Date().getHours();
+
+if(5 < currentHour < 11){
+  setInterval(() => {
+    https.get('https://eskate-backend.herokuapp.com/');
+  },
+  3540000
+  );
+}

@@ -10,10 +10,8 @@ const upload = multer({dest: `${__dirname}/../temp-assets`});
 
 module.exports = (fieldName) => (req, res, next) => {
   console.log('hit multer');
-  console.log('fieldName: ', fieldName);
 
   upload.single(fieldName)(req, res, (err) => {
-    console.log('fieldName.file: ', fieldName.file);
     if(err) return next(err);
     s3.upload({
       ACL: 'public-read',
