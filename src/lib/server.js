@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+const https = require('https');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
@@ -57,3 +58,14 @@ server.stop = () => {
     reject(new Error('It seems like the server is off'));
   });
 };
+
+//try https get request with node https get
+let currentHour = new Date().getHours();
+
+if(5 < currentHour < 11){
+  setInterval(() => {
+    https.get('https://eskate-backend.herokuapp.com/');
+  },
+  3540000
+  );
+}
