@@ -64,8 +64,8 @@ let currentHour = new Date().getHours();
 
 if(5 < currentHour < 11){
   setInterval(() => {
-    https.get('https://eskate-backend.herokuapp.com/');
+    return https.get('https://eskate-backend.herokuapp.com/');
   },
-  3540000
+  3900000
   );
 }
